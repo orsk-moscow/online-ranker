@@ -1,0 +1,6 @@
+USE venues;
+
+LOAD DATA LOCAL INFILE '/opt/venues.csv'
+INTO TABLE info
+FIELDS TERMINATED BY ','
+IGNORE 1 ROWS;
