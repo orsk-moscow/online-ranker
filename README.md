@@ -12,5 +12,5 @@
 Original data is in [Google Drive](https://drive.google.com/drive/folders/1AGRaY2A25E74AMsDHUNPE8T5Y1dzNCFE?usp=sharing)
 
 Stored in local directories:
-- [sessions](data/sessions.csv)
+- [sessions](s3/sessions.csv)
 - [venues](cache/venues.csv)

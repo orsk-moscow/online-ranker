@@ -24,12 +24,12 @@ services:
             - localNetwork
 
 
-    init:
+    init-cache:
         image: cache:latest
-        container_name: init
+        container_name: init-cache
         restart: "no"
         volumes:
-            - ./cache/insert.sh:/opt/insert.sh
+            - ./cache/init.sh:/opt/init.sh
         depends_on:
             cache:
                 condition: service_healthy
@@ -37,7 +37,7 @@ services:
             - localNetwork
         command:
             - --explicit_defaults_for_timestamp=1
-        entrypoint: [ "sh" , "/opt/insert.sh" ]
+        entrypoint: [ "sh" , "/opt/init.sh" ]
 
     phpmyadmin:
         container_name: phpmyadmin
@@ -54,3 +54,44 @@ services:
             PMA_HOST: cache
             PMA_PORT: 3306
             MYSQL_ROOT_PASSWORD: localpassword
+
+
+    s3:
+        image: minio/minio
+        container_name: s3
+        restart: always
+        environment:
+            MINIO_ROOT_USER: minio
+            MINIO_ROOT_PASSWORD: minio123
+            MINIO_BUCKET: mybucket
+            MINIO_PORT: 9000
+        healthcheck:
+            test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+            timeout: 1s
+            retries: 10
+        ports:
+            - 9000:9000
+            - 9001:9001
+        networks:
+            - localNetwork
+        command: server /data/mybucket --console-address ":9001"
+
+
+    init-s3:
+        image: minio/mc
+        container_name: init-s3
+        restart: "no"
+        environment:
+            MINIO_ROOT_USER: minio
+            MINIO_ROOT_PASSWORD: minio123
+            MINIO_BUCKET: mybucket
+            MINIO_PORT: 9000
+        volumes:
+            - ./s3/init.sh:/opt/init.sh
+            - ./s3/sessions.csv:/opt/sessions.csv
+        depends_on:
+            s3:
+                condition: service_healthy
+        networks:
+            - localNetwork
+        entrypoint: [ "sh" , "/opt/init.sh" ]
