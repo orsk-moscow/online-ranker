@@ -1,0 +1,56 @@
+version: "3.9"
+
+networks:
+    localNetwork:
+        driver: bridge
+        name: network
+
+services:
+
+    cache:
+        image: cache:latest
+        container_name: cache
+        ports:
+            - 3306:3306
+            - 33060:33060
+        restart: on-failure
+        healthcheck:
+            test: ["CMD", "mysqladmin" ,"ping", "--host=localhost", "--port=3306", "--user=localuser", "--password=localpassword"]
+            timeout: 1s
+            retries: 10
+        command:
+            - --explicit_defaults_for_timestamp=1
+        networks:
+            - localNetwork
+
+
+    init:
+        image: cache:latest
+        container_name: init
+        restart: "no"
+        volumes:
+            - ./cache/insert.sh:/opt/insert.sh
+        depends_on:
+            cache:
+                condition: service_healthy
+        networks:
+            - localNetwork
+        command:
+            - --explicit_defaults_for_timestamp=1
+        entrypoint: [ "sh" , "/opt/insert.sh" ]
+
+    phpmyadmin:
+        container_name: phpmyadmin
+        networks:
+            - localNetwork   
+        image: phpmyadmin/phpmyadmin:5.2.0
+        depends_on:
+            cache:
+                condition: service_healthy
+        restart: always
+        ports:
+            - 1112:80
+        environment:
+            PMA_HOST: cache
+            PMA_PORT: 3306
+            MYSQL_ROOT_PASSWORD: localpassword

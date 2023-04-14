@@ -1,0 +1,2 @@
+mysql --host=cache --port=3306 --user=root --password=localpassword --database=venues -e "SET GLOBAL local_infile=1" && \
+mysql --host=cache --port=3306 --user=root --password=localpassword --database=venues --local-infile < /opt/load.sql
