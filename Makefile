@@ -10,7 +10,7 @@ PN = wolt
 DC = docker-compose
 
 # the Dockerfile to build the image for the cache DB:
-DF_CACHE = cache.Dockerfile
+DF_CACHE = cache/cache.Dockerfile
 # the tag of the image to build
 TAG_CACHE = cache:latest
 
