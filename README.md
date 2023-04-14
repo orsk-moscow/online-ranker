@@ -14,3 +14,7 @@ Original data is in [Google Drive](https://drive.google.com/drive/folders/1AGRaY
 Stored in local directories:
 - [sessions](s3/sessions.csv)
 - [venues](cache/venues.csv)
+
+# Work
+
+See [GitHub project](https://github.com/users/orsk-moscow/projects/2)
