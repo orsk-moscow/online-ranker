@@ -1,10 +1,10 @@
 import os
 
-from app.config.base import *
+from config.base import *
 
 environment = os.environ.get("environment", "prod")
 
 if environment == "prod":
-    from app.config.prod import *
+    from config.prod import *
 else:
     raise ValueError(f"Invalid environment: {environment}")

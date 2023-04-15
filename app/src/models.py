@@ -1,26 +1,15 @@
-from pydantic import BaseModel, conint, confloat, conbool
+from sqlalchemy import Column, Float, Integer
+from sqlalchemy.ext.declarative import declarative_base
+
+Base = declarative_base()
 
 
-class SingleResponse(BaseModel):
-    venue_id: conint()
-    score: confloat(gt=0.0, lt=1.0)
+class Venue(Base):
+    __tablename__ = "info"
 
-
-class PredictResponse(BaseModel):
-    venues: list[SingleResponse]
-
-
-class InputVenue(BaseModel):
-    venue_id: conint()
-    has_seen_venue_in_this_session: conbool()
-    is_from_order_again: conbool()
-    is_recommended: conbool()
-
-
-class Venue(BaseModel):
-    venue_id: int
-    conversions_per_impression: float
-    price_range: int
-    rating: float
-    popularity: float
-    retention_rate: float
+    venue_id = Column(Integer, primary_key=True, index=True)
+    conversions_per_impression = Column(Float)
+    price_range = Column(Integer)
+    rating = Column(Float)
+    popularity = Column(Float)
+    retention_rate = Column(Float)
