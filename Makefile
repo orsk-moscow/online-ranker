@@ -14,10 +14,16 @@ DF_CACHE = cache.Dockerfile
 # the tag of the image to build
 TAG_CACHE = cache:latest
 
+# the Dockerfile to build the image for the cache DB:
+DF_APP = app/app.Dockerfile
+# the tag of the image to build
+TAG_APP = app:latest
+
 define HELP_MESSAGE
 Available options and flags
 
 bcache:		build image from `$(DF_CACHE)` with tag `$(TAG_CACHE)`
+bapp:		build image from `$(DF_APP)` with tag `$(TAG_APP)`
 up:     	make the containers from `$(DC_FILE)` up 
 stop:   	stop the containers from `$(DC_FILE)`
 start:  	start the containers from `$(DC_FILE)`
@@ -35,6 +41,11 @@ bcache:
 	@export DOCKER_BUILDKIT=1
 	@export COMPOSE_DOCKER_CLI_BUILD=0
 	@docker build  -t $(TAG_CACHE) -f $(DF_CACHE) ./cache
+
+bapp:
+	@export DOCKER_BUILDKIT=1
+	@export COMPOSE_DOCKER_CLI_BUILD=0
+	@docker build  -t $(TAG_APP) -f $(DF_APP) .
 
 up:
 	@$(DC) -f $(DC_FILE) -p "$(PN)" up

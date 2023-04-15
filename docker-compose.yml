@@ -85,3 +85,23 @@ services:
             - 1112:80
         env_file:
             - .env
+
+    app:
+        image: app:latest
+        container_name: app
+        restart: always
+        depends_on:
+            init-cache:
+                condition: service_completed_successfully
+            init-s3:
+                condition: service_completed_successfully
+        ports:
+            - ${APP_PORT}:80
+        networks:
+            - localNetwork
+        env_file:
+            - .env
+        healthcheck:
+            test: ["CMD", "curl", "-f", "http://localhost:${APP_PORT}/ping"]
+            timeout: 1s
+            retries: 10
