@@ -1,5 +1,9 @@
+import os
 from typing import Optional
+
 from pydantic import BaseSettings
+
+RANDOM_STATE = os.environ.get("RANDOM_STATE", 21)
 
 
 class AppSettings(BaseSettings):
