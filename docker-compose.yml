@@ -11,7 +11,7 @@ services:
         image: cache:latest
         container_name: cache
         ports:
-            - ${PMA_PORT}:3306
+            - ${MYSQL_PORT}:3306
         restart: on-failure
         healthcheck:
             test: ["CMD", "mysqladmin" ,"ping", "--host=localhost", "--port=3306", "--user=localuser", "--password=localpassword"]
@@ -73,20 +73,6 @@ services:
         networks:
             - localNetwork
         entrypoint: [ "sh" , "/opt/init.sh" ]
-
-    phpmyadmin:
-        container_name: phpmyadmin
-        networks:
-            - localNetwork   
-        image: phpmyadmin/phpmyadmin:5.2.0
-        depends_on:
-            cache:
-                condition: service_healthy
-        restart: always
-        ports:
-            - 1112:80
-        env_file:
-            - .env
 
     app:
         image: app:latest
