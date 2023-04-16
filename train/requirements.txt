@@ -1,0 +1,5 @@
+boto3==1.26.114
+mysqlclient==2.1.1
+PyMySQL==1.0.2
+pyyaml==5.4.1
+sqlalchemy==1.4.47
