@@ -3,11 +3,11 @@ from pydantic import BaseModel, conint, confloat
 
 class SingleResponse(BaseModel):
     venue_id: conint()
-    score: confloat(gt=0.0, lt=1.0)
+    score: confloat()
 
 
 class PredictResponse(BaseModel):
-    venues: list[SingleResponse]
+    venues_and_scores: list[SingleResponse]
 
 
 class PingResponse(BaseModel):
@@ -16,7 +16,6 @@ class PingResponse(BaseModel):
 
 class InputVenue(BaseModel):
     venue_id: conint()
-    has_seen_venue_in_this_session: bool
     is_from_order_again: bool
     is_recommended: bool
 

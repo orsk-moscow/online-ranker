@@ -2,12 +2,13 @@ import logging
 from pathlib import Path
 
 import boto3
+from catboost import CatBoostRanker
 from config import settings
 from fastapi import FastAPI, Request
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session, sessionmaker
 
-from src import models, schemas
+from src import models
 
 log = logging.getLogger("api")
 logging.basicConfig(level=logging.INFO)
@@ -19,9 +20,8 @@ log.info(f"Connected to database: {db.host}:{db.port}/{db.database}")
 SessionLocal = sessionmaker(autocommit=True, autoflush=False, bind=engine)
 
 
-def get_venue(db: Session, venue_id: int):
-    log.info(f"Getting venue: {venue_id}")
-    return db.query(models.Venue).filter(models.Venue.venue_id == venue_id).first()
+def get_venues(db: Session, venue_ids: list[int]) -> list[models.Venue]:
+    return db.query(models.Venue).filter(models.Venue.venue_id.in_(venue_ids)).all()
 
 
 def get_db():
@@ -54,3 +54,32 @@ def download_weigths():
         str(local_path.absolute()),
     )
     log.info(f"Downloaded weights into: {local_path.absolute()}")
+    return local_path.absolute()
+
+
+def rows_to_dict(rows: list[models.Venue]) -> dict[int, list]:
+    return dict(
+        [
+            (
+                row.venue_id,
+                [
+                    row.conversions_per_impression,
+                    row.price_range,
+                    row.rating,
+                    row.popularity,
+                    row.retention_rate,
+                ],
+            )
+            for row in rows
+        ]
+    )
+
+
+def get_ranker(request: Request):
+    return request.app.state.ranker
+
+
+def on_startup(app: FastAPI) -> None:
+    path = download_weigths()
+    log.info("Ranker dependency: initializing")
+    app.state.ranker = CatBoostRanker().load_model(path)

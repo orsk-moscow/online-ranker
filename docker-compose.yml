@@ -65,6 +65,7 @@ services:
         volumes:
             - ./s3/init.sh:/opt/init.sh
             - ./s3/sessions.csv:/opt/sessions.csv
+            - ./s3/model.cbm:/opt/model.cbm
         depends_on:
             s3:
                 condition: service_healthy
