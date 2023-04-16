@@ -13,15 +13,27 @@ class ObjectStorageSettings(BaseSettings):
     host: Optional[str]
     port: Optional[int]
     url: str
+    folder: str
+    weights: str
 
     class Config:
-        # TODO change to .env
+        # Training pipeline settings uses 'localhost' urls, not an internal networks
         env_file = ".env.test"
         env_prefix = "MINIO_"
 
 
+class TrainingPipelineSettings(BaseSettings):
+    weights: str
+
+    class Config:
+        # Training pipeline settings uses 'localhost' urls, not an internal networks
+        env_file = ".env.test"
+        env_prefix = "TRAIN_"
+
+
 class Settings(BaseSettings):
     s3: ObjectStorageSettings = ObjectStorageSettings()
+    train: TrainingPipelineSettings = TrainingPipelineSettings()
 
 
 settings = Settings()
