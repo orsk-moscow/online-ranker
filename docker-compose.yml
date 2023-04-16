@@ -74,20 +74,6 @@ services:
             - localNetwork
         entrypoint: [ "sh" , "/opt/init.sh" ]
 
-    phpmyadmin:
-        container_name: phpmyadmin
-        networks:
-            - localNetwork   
-        image: phpmyadmin/phpmyadmin:5.2.0
-        depends_on:
-            cache:
-                condition: service_healthy
-        restart: always
-        ports:
-            - 1112:80
-        env_file:
-            - .env
-
     app:
         image: app:latest
         container_name: app
