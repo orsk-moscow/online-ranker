@@ -4,11 +4,8 @@ import logging
 from typing import NoReturn, Optional, Tuple, Union
 
 import pandas as pd
-from catboost import CatBoostRanker, Pool, cv
+from catboost import CatBoostRanker, Pool
 from pandas import DataFrame
-from sklearn.model_selection import KFold
-
-from train.config import RANDOM_STATE
 
 logging.basicConfig(level=logging.INFO)
 log = logging.getLogger("train.utils")

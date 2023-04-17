@@ -17,7 +17,8 @@ class ObjectStorageSettings(BaseSettings):
     weights: str
 
     class Config:
-        # Training pipeline settings uses 'localhost' urls, not an internal networks
+        # TODO Training pipeline settings uses 'localhost' urls, 
+        # not an internal networks. Need to solve where to move it further.
         env_file = ".env.test"
         env_prefix = "MINIO_"
 
@@ -26,7 +27,8 @@ class TrainingPipelineSettings(BaseSettings):
     weights: str
 
     class Config:
-        # Training pipeline settings uses 'localhost' urls, not an internal networks
+        # TODO Training pipeline settings uses 'localhost' urls, 
+        # not an internal networks. Need to solve where to move it further.
         env_file = ".env.test"
         env_prefix = "TRAIN_"
 
