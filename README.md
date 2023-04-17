@@ -18,3 +18,9 @@ Stored in local directories:
 # Work
 
 See [GitHub project](https://github.com/users/orsk-moscow/projects/2)
+
+# Artifacts
+
+[Google Drive Folder](https://docs.google.com/presentation/d/1wkgZmQNw8YM2FeHONBhDiAofvRXcVD_UZ0wSQlMJx8c/edit#slide=id.p)
+
+[Google Slides](https://docs.google.com/presentation/d/1wkgZmQNw8YM2FeHONBhDiAofvRXcVD_UZ0wSQlMJx8c/edit#slide=id.p)
