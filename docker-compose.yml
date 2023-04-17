@@ -14,14 +14,13 @@ services:
             - ${MYSQL_PORT}:3306
         restart: on-failure
         healthcheck:
-            test: ["CMD", "mysqladmin" ,"ping", "--host=localhost", "--port=3306", "--user=localuser", "--password=localpassword"]
+            test: ["CMD", "mysqladmin" ,"ping", "--host=localhost", "--port=3306", "--user=${MYSQL_USER}", "--password=${MYSQL_PASSWORD}"]
             timeout: 1s
             retries: 10
         command:
             - --explicit_defaults_for_timestamp=1
         networks:
             - localNetwork
-
 
     init-cache:
         image: cache:latest
@@ -54,7 +53,6 @@ services:
         networks:
             - localNetwork
         command: server /data/mybucket --console-address ":${MINIO_PORT_UI}"
-
 
     init-s3:
         image: minio/mc
