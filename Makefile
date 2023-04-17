@@ -27,14 +27,25 @@ TAG_TRAIN = train:latest
 define HELP_MESSAGE
 Available options and flags
 
-bcache:		build image from `$(DF_CACHE)` with tag `$(TAG_CACHE)`
+# GENERAL
+help:		show this message
+
+# BUILD IMAGES
 bapp:		build image from `$(DF_APP)` with tag `$(TAG_APP)`
+bcache:		build image from `$(DF_CACHE)` with tag `$(TAG_CACHE)`
 btrain:		build image from `$(DF_TRAIN)` with tag `$(TAG_TRAIN)`
+
+# OPERATE WITH CONTAINERS
 up:     	make the containers from `$(DC_FILE)` up 
 stop:   	stop the containers from `$(DC_FILE)`
 start:  	start the containers from `$(DC_FILE)`
 down:   	make the containers from `$(DC_FILE)` down 
 du:     	consistently execute down and up
+
+# UNIVERSAL RULES
+all:		build `$(TAG_APP)`, `$(TAG_CACHE)`, `$(TAG_TRAIN)` and run the containers from `$(DC_FILE)`
+clean:		clean all the containers
+re:         relaunch the containers
 
 endef
 export HELP_MESSAGE
@@ -71,3 +82,10 @@ stop:
 
 start:
 	@$(DC) -f $(DC_FILE) start
+
+clean: down
+	@docker system prune -f
+
+all: bcache bapp up
+
+re: clean up
