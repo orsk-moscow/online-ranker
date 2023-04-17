@@ -21,10 +21,26 @@ SessionLocal = sessionmaker(autocommit=True, autoflush=False, bind=engine)
 
 
 def get_venues(db: Session, venue_ids: list[int]) -> list[models.Venue]:
+    """
+    Retrieve a list of venues from the database given their ids.
+
+    Args:
+        db (Session): SQLAlchemy database session.
+        venue_ids (list[int]): List of venue ids to retrieve.
+
+    Returns:
+        list[models.Venue]: List of Venue objects.
+    """
     return db.query(models.Venue).filter(models.Venue.venue_id.in_(venue_ids)).all()
 
 
 def get_db():
+    """
+    Get a database session for the current request context.
+
+    Yields:
+        Session: SQLAlchemy database session.
+    """
     db = SessionLocal()
     try:
         yield db
@@ -33,7 +49,12 @@ def get_db():
 
 
 def download_weigths():
+    """
+    Download weights from S3 and store them in a local folder.
 
+    Returns:
+        str: Absolute path to the downloaded weights file.
+    """
     s3_settings = settings.s3
     s3_client = boto3.client(
         service_name=s3_settings.service_name,
@@ -58,6 +79,16 @@ def download_weigths():
 
 
 def rows_to_dict(rows: list[models.Venue]) -> dict[int, list]:
+    """
+    Convert a list of Venue objects to a dictionary with venue ids as keys and
+    a list of feature values as values.
+
+    Args:
+        rows (list[models.Venue]): List of Venue objects.
+
+    Returns:
+        dict[int, list]: Dictionary with venue ids as keys and feature values as values.
+    """
     return dict(
         [
             (
@@ -76,10 +107,30 @@ def rows_to_dict(rows: list[models.Venue]) -> dict[int, list]:
 
 
 def get_ranker(request: Request):
+    """
+    Retrieve the CatBoostRanker model from the application state.
+
+    Args:
+        request (Request): FastAPI request object.
+
+    Returns:
+        CatBoostRanker: CatBoostRanker model.
+    """
     return request.app.state.ranker
 
 
 def on_startup(app: FastAPI) -> None:
+    """
+    Function to be called on application startup.
+
+    Downloads the CatBoostRanker model from S3 and initializes it.
+
+    Args:
+        app (FastAPI): FastAPI application object.
+
+    Returns:
+        None
+    """
     path = download_weigths()
     log.info("Ranker dependency: initializing")
     app.state.ranker = CatBoostRanker().load_model(path)
