@@ -53,7 +53,7 @@ export HELP_MESSAGE
 help: 
 	@echo "$$HELP_MESSAGE"
 
-# We need to set the following environment variables before running the commands, because of the [hard multi-stage builds](https://stackoverflow.com/questions/64221861/an-error-failed-to-solve-with-frontend-dockerfile-v0) on M1 processors:
+# NOTE We need to set the following environment variables before running the commands, because of the [hard multi-stage builds](https://stackoverflow.com/questions/64221861/an-error-failed-to-solve-with-frontend-dockerfile-v0) on M1 processors:
 bcache:
 	@export DOCKER_BUILDKIT=1
 	@export COMPOSE_DOCKER_CLI_BUILD=0
@@ -64,6 +64,7 @@ bapp:
 	@export COMPOSE_DOCKER_CLI_BUILD=0
 	@docker build  -t $(TAG_APP) -f $(DF_APP) .
 
+# TODO need to fix the Dockerfile for the train, see notes in the `train.Dockerfile` file
 btrain:
 	@export DOCKER_BUILDKIT=1
 	@export COMPOSE_DOCKER_CLI_BUILD=0

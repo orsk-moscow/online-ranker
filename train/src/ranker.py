@@ -7,7 +7,7 @@ from typing import NoReturn
 import boto3
 import botocore.exceptions
 import pandas as pd
-from catboost import CatBoostRanker, Pool
+from catboost import CatBoostRanker
 from sklearn.model_selection import KFold
 
 from train.config import RANDOM_STATE, settings
