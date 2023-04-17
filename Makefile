@@ -19,11 +19,17 @@ DF_APP = app/app.Dockerfile
 # the tag of the image to build
 TAG_APP = app:latest
 
+# the Dockerfile to build the image for the cache DB:
+DF_TRAIN = train/train.Dockerfile
+# the tag of the image to build
+TAG_TRAIN = train:latest
+
 define HELP_MESSAGE
 Available options and flags
 
 bcache:		build image from `$(DF_CACHE)` with tag `$(TAG_CACHE)`
 bapp:		build image from `$(DF_APP)` with tag `$(TAG_APP)`
+btrain:		build image from `$(DF_TRAIN)` with tag `$(TAG_TRAIN)`
 up:     	make the containers from `$(DC_FILE)` up 
 stop:   	stop the containers from `$(DC_FILE)`
 start:  	start the containers from `$(DC_FILE)`
@@ -46,6 +52,11 @@ bapp:
 	@export DOCKER_BUILDKIT=1
 	@export COMPOSE_DOCKER_CLI_BUILD=0
 	@docker build  -t $(TAG_APP) -f $(DF_APP) .
+
+btrain:
+	@export DOCKER_BUILDKIT=1
+	@export COMPOSE_DOCKER_CLI_BUILD=0
+	@docker build  -t $(TAG_TRAIN) -f $(DF_TRAIN) .
 
 up:
 	@$(DC) -f $(DC_FILE) -p "$(PN)" up
