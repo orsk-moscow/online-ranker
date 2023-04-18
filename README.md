@@ -21,6 +21,6 @@ See [GitHub project](https://github.com/users/orsk-moscow/projects/2)
 
 # Artifacts
 
-[Google Drive Folder](https://docs.google.com/presentation/d/1wkgZmQNw8YM2FeHONBhDiAofvRXcVD_UZ0wSQlMJx8c/edit#slide=id.p)
+[Google Drive Folder](https://drive.google.com/drive/u/0/folders/1TkQqPVDrmnIobis-dXCtSQ-zt4ecBiit)
 
 [Google Slides](https://docs.google.com/presentation/d/1wkgZmQNw8YM2FeHONBhDiAofvRXcVD_UZ0wSQlMJx8c/edit#slide=id.p)
