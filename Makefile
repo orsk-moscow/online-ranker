@@ -64,11 +64,10 @@ bapp:
 	@export COMPOSE_DOCKER_CLI_BUILD=0
 	@docker build  -t $(TAG_APP) -f $(DF_APP) .
 
-# TODO need to fix the Dockerfile for the train, see notes in the `train.Dockerfile` file
-btrain:
-	@export DOCKER_BUILDKIT=1
-	@export COMPOSE_DOCKER_CLI_BUILD=0
-	@docker build  -t $(TAG_TRAIN) -f $(DF_TRAIN) .
+# btrain:
+# 	@export DOCKER_BUILDKIT=1
+# 	@export COMPOSE_DOCKER_CLI_BUILD=0
+# 	@docker build  -t $(TAG_TRAIN) -f $(DF_TRAIN) .
 
 up:
 	@$(DC) -f $(DC_FILE) -p "$(PN)" up
