@@ -2,8 +2,6 @@ FROM python:3.9
 
 USER root
 
-# TODO: build catboost from source 
-# https://catboost.ai/en/docs/installation/python-installation-method-build-from-source-linux-macos
 RUN apt-get update \
     && apt-get install -y gcc \
     && apt-get clean \
