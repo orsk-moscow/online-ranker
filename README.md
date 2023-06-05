@@ -1,3 +1,18 @@
+# Table of Contents
+
+1. [Project Description](#project-description)
+   * [Project Objectives](#project-objectives)
+   * [Additional Details](#additional-details)
+2. [Data Sources](#data-sources)
+3. [Solution Design](#solution-design)
+   * [Overview of the Task](#overview-of-the-task)
+   * [Important Parts](#important-parts)
+   * [Caching](#caching)
+   * [ML Metrics Selection](#ml-metrics-selection)
+   * [Solution Structure](#solution-structure)
+
+
+---
 # Project Description
 
 This repository addresses a common scenario in the field of Machine Learning Engineering, particularly within a production environment. It involves building a solution for online reranking of a given list of items, applicable to a wide range of contexts such as goods in e-commerce, restaurants in food delivery services, audio tracks or movies in online streaming, etc. 
@@ -29,6 +44,7 @@ The provided dataset is designed to mirror real-world situations, complete with 
 
 The approach to this project emphasizes the clarity and quality of the code, comprehension of basic principles, and the rationale behind decisions made. The design doesn't need to be excessively detailed, but it showcase a sound understanding of the project's requirements.
 
+---
 # Data Sources
 
 The primary data is hosted on GitHub and can be retrieved through several methods.
@@ -57,9 +73,10 @@ After this procedure, note that you can access the data via these paths:
 - [Session Data: s3/sessions.csv](s3/sessions.csv)
 - [Item Data: cache/venues.csv](cache/venues.csv)
 
+---
 # Solution Design
 
-## The task - helicopter view
+## Overview of the Task
 The task assumes preselected venue candidates, identified by `session_id`, need ranking based on the user and venue context. 
 This fits into the second step of typical ranking system design: solving a learning-to-rank problem via specific metric optimization.
 Roughly, it could be visualize via this picture:
