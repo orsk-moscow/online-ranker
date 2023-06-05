@@ -35,8 +35,6 @@ class ObjectStorageSettings(BaseSettings):
     class Config:
         # The configuration settings for the ObjectStorageSettings class.
 
-        # TODO Training pipeline settings uses 'localhost' urls,
-        # not an internal networks. Need to solve where to move it further.
         env_file = ".env.test"
         env_prefix = "MINIO_"
 
