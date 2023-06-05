@@ -28,3 +28,31 @@ The provided dataset is designed to mirror real-world situations, complete with 
 - `is_recommended`: Represents an unspecified personalized recommendation available at prediction time.
 
 The approach to this project emphasizes the clarity and quality of the code, comprehension of basic principles, and the rationale behind decisions made. The design doesn't need to be excessively detailed, but it showcase a sound understanding of the project's requirements.
+
+# Data Sources
+
+The primary data is hosted on GitHub and can be retrieved through several methods.
+
+1. A straightforward bash script:
+
+```bash
+wget https://github.com/orsk-moscow/online-ranker/releases/download/v0.1/sessions.csv.zip && \
+unzip sessions.csv.zip -d ./s3/ && \
+wget https://github.com/orsk-moscow/online-ranker/releases/download/v0.1/venues.csv.zip && \
+unzip venues.csv.zip -d ./cache/
+```
+
+2. Downloading manually by accessing this links:
+
+- https://github.com/orsk-moscow/online-ranker/releases/download/v0.1/sessions.csv.zip
+- https://github.com/orsk-moscow/online-ranker/releases/download/v0.1/venues.csv.zip
+
+Once the download is complete, decompress the archives and organize them as follows:
+
+- Session Data should be placed in `s3/sessions.csv`
+- Item Data should be placed in `cache/venues.csv`
+
+After this procedure, note that you can access the data via these paths:
+
+- [Session Data: s3/sessions.csv](s3/sessions.csv)
+- [Item Data: cache/venues.csv](cache/venues.csv)
