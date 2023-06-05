@@ -1,5 +1,3 @@
--- TODO: This is a unsecure file. Need to replace all the secrets in this file with environment variables.
-
 -- This line creates a new database called 'venues' if it doesn't already exist.
 CREATE DATABASE IF NOT EXISTS venues;
 
