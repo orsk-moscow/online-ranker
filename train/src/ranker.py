@@ -201,7 +201,6 @@ class training_pipeline:
         Returns:
             None
         """
-        # TODO Here could be an prerequisites to save the model, e.g. check if the model is better than the previous one.
         # Log the saving of the model.
         self._log.info("Saving model...")
 
